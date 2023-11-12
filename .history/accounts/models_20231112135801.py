@@ -41,7 +41,7 @@ class User(AbstractBaseUser):
     CUSTOMER = 2
 
     ROLE_CHOICE = (
-        (RESTAURANT, 'restaurant'),
+        (RESTAURANT, 'Vendor'),
         (CUSTOMER, 'Customer'),
     )
     first_name = models.CharField(max_length=50)
