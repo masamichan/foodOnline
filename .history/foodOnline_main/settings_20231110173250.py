@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -76,12 +75,15 @@ WSGI_APPLICATION = 'foodOnline_main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE' : 'django.db.backends.postgresql',
+        'NAME' : 'foodOnline_db',
+        'USER' : 'foodOnline',
+        'PASSWORD' : 'positivemasa07@gmail.com',
+        'HOST' : 'localhost',
     }
 }
 
-AUTH_USER_MODEL = 'accounts.User'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
