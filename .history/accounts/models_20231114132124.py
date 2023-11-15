@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db.models.fields.related import OneToOneField
-from django.contrib.gis.db import models as gismodels
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -30,7 +29,7 @@ class UserManager(BaseUserManager):
             first_name = first_name,
             last_name = last_name,
         )
-        user.is_admin = Tru
+        user.is_admin = True
         user.is_active = True
         user.is_staff = True
         user.is_superadmin = True

@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.db.models.fields.related import OneToOneField
+from django.db.models.fields.related import ForeignKey, OneToOneField
+
 from django.contrib.gis.db import models as gismodels
+from django.contrib.gis.geos import Point
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -30,7 +32,7 @@ class UserManager(BaseUserManager):
             first_name = first_name,
             last_name = last_name,
         )
-        user.is_admin = Tru
+        user.is_admin = True
         user.is_active = True
         user.is_staff = True
         user.is_superadmin = True
@@ -39,11 +41,11 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    RESTAURANT = 1
+    VENDOR = 1
     CUSTOMER = 2
 
     ROLE_CHOICE = (
-        (RESTAURANT, 'restaurant'),
+        (VENDOR, 'Vendor'),
         (CUSTOMER, 'Customer'),
     )
     first_name = models.CharField(max_length=50)
@@ -76,7 +78,15 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-    
+
+    def get_role(self):
+        if self.role == 1:
+            user_role = 'Vendor'
+        elif self.role == 2:
+            user_role = 'Customer'
+        return user_role
+
+
 class UserProfile(models.Model):
     user = OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='users/profile_pictures', blank=True, null=True)
@@ -92,10 +102,15 @@ class UserProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    # def full_address(self):
+    #     return f'{self.address_line_1}, {self.address_line_2}'
+
     def __str__(self):
         return self.user.email
 
 
-
-
-    
+    def save(self, *args, **kwargs):
+        if self.latitude and self.longitude:
+            self.location = Point(float(self.longitude), float(self.latitude))
+            return super(UserProfile, self).save(*args, **kwargs)
+        return super(UserProfile, self).save(*args, **kwargs)
