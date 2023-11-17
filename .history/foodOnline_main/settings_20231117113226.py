@@ -78,9 +78,10 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'foodOnline_db',
-            'USER': 'postgres',
-            'PASSWORD': 'p31117290m',
-            'HOST': 'localhost'
+            'USER': 'user_django',
+            'PASSWORD': 'your_password',
+            'HOST': 'localhost',
+            'PORT': '5432',
         }
     }
 

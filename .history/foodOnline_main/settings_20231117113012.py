@@ -78,9 +78,9 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'foodOnline_db',
-            'USER': 'postgres',
+            'USER': 'uber_django',
             'PASSWORD': 'p31117290m',
-            'HOST': 'localhost'
+            'HOST': 'localhost',
         }
     }
 

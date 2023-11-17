@@ -78,7 +78,7 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'foodOnline_db',
-            'USER': 'postgres',
+            'USER': 'foodOnline',
             'PASSWORD': 'p31117290m',
             'HOST': 'localhost'
         }
